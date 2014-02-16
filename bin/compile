@@ -116,8 +116,8 @@ function install_composer_deps() {
         php "vendor/composer/bin/composer.phar" install \
             --prefer-dist \
             --optimize-autoloader \
-            --no-interaction \
-            --no-dev
+            $DEV \
+            --no-interaction
         cd "$cwd"
     } | indent
 }
@@ -248,6 +248,7 @@ COMPILE_CMD=
 NGINX_INCLUDES=
 NEWRELIC_VERSION=4.4.5.35
 LOG_FILES=( "/app/vendor/nginx/logs/access.log" "/app/vendor/nginx/logs/error.log" "/app/vendor/php/var/log/error.log" )
+DEV=
 
 # Read config variables from composer.json if it exists
 if [ -f "$BUILD_DIR/composer.json" ]; then
@@ -261,6 +262,11 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
     COMPILE_CMD=$(package_compile_cmd)
     NGINX_INCLUDES=$(package_nginx_includes)
     USER_LOG_FILES=$(package_log_files)
+fi
+
+# Check if dev env
+if [ "$STAGE" != "dev" ]; then
+    DEV="--no-dev"
 fi
 
 # Try reading PHP version from .php-version file in project
