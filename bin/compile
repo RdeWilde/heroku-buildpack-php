@@ -267,6 +267,9 @@ fi
 # Check if dev env
 if [ "$STAGE" != "dev" ]; then
     DEV="--no-dev"
+    echo "Using prod-mode with Composer"
+else
+    echo "Using dev-mode with Composer"
 fi
 
 # Try reading PHP version from .php-version file in project
