@@ -30,6 +30,9 @@ location ~ \.php$ {
     fastcgi_read_timeout 10s;
     fastcgi_send_timeout 20s;
     fastcgi_ignore_client_abort on;
+    
+    limit_conn phplimit 5;
+    
     fastcgi_pass_header "X-Accel-Expires";
     
     fastcgi_param	QUERY_STRING		$query_string;
@@ -84,8 +87,10 @@ location ~ /\.(ht|svn|git) {
 }
 
 location ~* \.(js|css|less|png|jpg|jpeg|gif|ico|woff|ttf|svg|tpl)$ {
-    expires 24h;
-    access_log off;
+    expires         max;
+    add_header      Pragma public;
+    add_header      Cache-Control "public, must-revalidate, proxy-revalidate";
+    access_log      off;
 }
 
 location = /favicon.ico {
