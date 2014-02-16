@@ -264,6 +264,8 @@ if [ -f "$BUILD_DIR/composer.json" ]; then
     USER_LOG_FILES=$(package_log_files)
 fi
 
+echo "$STAGE"
+
 # Check if dev env
 if [ "$STAGE" != "dev" ]; then
     DEV="--no-dev"
