@@ -29,7 +29,6 @@ location ~ \.php$ {
     fastcgi_param HTTPS on;
     
     fastcgi_pass    php;
-    fastcgi_pass   127.0.0.1:9000;
     #fastcgi_pass unix:/var/run/php5-fpm.sock;
     
     fastcgi_buffer_size 128k;
