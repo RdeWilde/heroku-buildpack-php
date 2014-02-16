@@ -14,6 +14,7 @@ http {
     tcp_nodelay on;
 
     keepalive_timeout  65;
+    limit_conn_zone $binary_remote_addr zone=phplimit:1m;
     
     types_hash_max_size 2048;
 
